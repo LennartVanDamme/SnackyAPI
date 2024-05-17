@@ -10,13 +10,7 @@ namespace SnackyAPI.Repositories
 
         public DbSet<Snack> Snacks { get; set; }
 
-
-        public SnackyDbContext()
-        {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "snacks.db");
-        }
+        public SnackyDbContext(DbContextOptions<SnackyDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlite($"Data Source={DbPath}");

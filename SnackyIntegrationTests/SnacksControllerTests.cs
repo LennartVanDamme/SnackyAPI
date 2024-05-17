@@ -7,11 +7,11 @@ using System.Text.Json;
 
 namespace SnackyAPIIntegrationTests
 {
-    public class SnacksControllerTests : IClassFixture<WebApplicationFactory<Program>>
+    public class SnacksControllerTests : IClassFixture<SnackyWebApplicationFactory>
     {
-        private readonly WebApplicationFactory<Program> factory;
+        private readonly SnackyWebApplicationFactory factory;
 
-        public SnacksControllerTests(WebApplicationFactory<Program> factory) 
+        public SnacksControllerTests(SnackyWebApplicationFactory factory) 
         {
             this.factory = factory;
         }

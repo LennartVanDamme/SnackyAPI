@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using SnackyAPI.Models.DTO.Profiles;
 using SnackyAPI.Models.Validation;
 using SnackyAPI.Repositories;
@@ -17,7 +18,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddValidatorsFromAssemblyContaining<SnackCreationValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 
-builder.Services.AddDbContext<SnackyDbContext>();
+builder.Services.AddDbContext<SnackyDbContext>(options =>
+{
+    var folder = Environment.SpecialFolder.LocalApplicationData;
+    var path = Environment.GetFolderPath(folder);
+    options.UseSqlite(Path.Join(path, "snacks.db"));
+});
 
 builder.Services.AddScoped<ISnacksService, SnacksService>();
 builder.Services.AddScoped<ISnacksRepository, SnacksRepository>();
